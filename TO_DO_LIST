@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+
+void displayMenu() {
+    cout << "\nTo-Do List Menu:\n";
+    cout << "1. Add a task\n";
+    cout << "2. View all tasks\n";
+    cout << "3. Mark a task as completed\n";
+    cout << "4. Exit\n";
+    cout << "Enter your choice: ";
+}
+
+int main() {
+    vector<string> tasks;
+    vector<bool> completed;
+
+    int choice;
+    do {
+        displayMenu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                // Add a task
+                string task;
+                cout << "Enter the task: ";
+                cin.ignore(); 
+                getline(cin, task);
+                tasks.push_back(task);
+                completed.push_back(false); 
+                cout << "Task added successfully!\n";
+                break;
+            }
+            case 2: {
+                // View all tasks
+                cout << "\nTo-Do List:\n";
+                if (tasks.empty()) {
+                    cout << "No tasks added yet.\n";
+                } else {
+                    for (size_t i = 0; i < tasks.size(); ++i) {
+                        cout << i + 1 << ". " << tasks[i];
+                        if (completed[i]) {
+                            cout << " [Completed]";
+                        }
+                        cout << endl;
+                    }
+                }
+                break;
+            }
+            case 3: {
+                
+                int taskNumber;
+                cout << "Enter the task number to mark as completed: ";
+                cin >> taskNumber;
+                if (taskNumber > 0 && taskNumber <= tasks.size()) {
+                    completed[taskNumber - 1] = true;
+                    cout << "Task marked as completed!\n";
+                } else {
+                    cout << "Invalid task number.\n";
+                }
+                break;
+            }
+            case 4:
+                cout << "Exiting the program.\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
